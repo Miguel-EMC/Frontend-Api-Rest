@@ -6,6 +6,10 @@ import { AuthTemplate } from '../components';
 import { AuthProvider } from "../contexts";
 import { PrivateRoute } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
+import { DashboardTemplate } from '../components/templates/DashboardTemplate';
+import { ListDirectors } from '../pages/directors/ListDirectors';
+import { ShowDirector } from '../pages/directors/ShowDirector';
+import { CreateDirector, UpdateDirector } from '../pages/directors';
 
 export const AppRouter = () => {
     return (
@@ -21,13 +25,18 @@ export const AppRouter = () => {
                     </PublicRoute>
                 } />
 
-                
-
                 <Route path='/*' element={
                     <PrivateRoute>
                         <Routes>
-                            <Route index path='/' element={<App />} />
+                                <Route element={<DashboardTemplate/>}>
+                                    <Route index path='/' element={<App />} />
+                                    <Route index path='/directors' element={<ListDirectors />} />
+                                    <Route index path='/directors/show/:id' element={<ShowDirector />} />
+                                    <Route index path='/directors/create' element={<CreateDirector />} />
+                                    <Route index path='/directors/edit/:id' element={<UpdateDirector />} />
+                                </Route>
                         </Routes>
+
                     </PrivateRoute>
                 } />
             </Routes>
